@@ -209,6 +209,5 @@ function civicrm_cron_passthrough() {
   require_once Civi::paths()->getPath('[civicrm.root]/CRM/Core/JobManager.php');
   $facility = new CRM_Core_JobManager();
 
-  return $facility->execute();
-
+  return $facility->execute(FALSE);
 }
