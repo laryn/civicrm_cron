@@ -4,8 +4,6 @@
  * CiviCRM Cron Module
  */
 
-use \Civi\Core\CRM_Utils_Constant;
-
 /**
  * Implements hook_menu().
  */
@@ -180,13 +178,14 @@ function civicrm_cron_cron() {
  *    the cron ran successfully.
  */
 function civicrm_cron_passthrough(string $sentkey = '') {
+  civicrm_initialize();
   $config = config('civicrm_cron.settings');
 
   if (empty($sentkey)) {
     $query = backdrop_get_query_parameters();
     $sentkey = $query['key'];
   }
-  if ($sentkey != \CRM_Utils_Constant::value('CIVICRM_SITE_KEY')) {
+  if ($sentkey != CIVICRM_SITE_KEY) {
     // Key doesn't match, so don't process.
     return t('The site key that was provided does not match the key in the CiviCRM configuration.');
   }
